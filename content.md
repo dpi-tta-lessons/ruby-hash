@@ -32,7 +32,10 @@ We can use the initializer to create a new instance of a `Hash`.
 
 ```ruby
 my_hash = Hash.new
+
+pp my_hash
 ```
+{: .repl }
 
 <!-- TODO: explain how to pass in key to access value -->
 <!-- TODO: use .store and .fetch first -->
@@ -74,6 +77,8 @@ We can also use the shorthand curly braces `{}` to create a hash. This is the mo
 
 ```ruby
 my_hash = {}
+
+pp my_hash
 ```
 {: .repl }
 
@@ -91,9 +96,11 @@ The newer colon syntax (:) is a shorthand that only works for symbol keys.
 
 <!-- TODO: what is a symbol? -->
 
-Ruby lets you write hashes in two ways:
+Ruby lets you write hashes in two ways, "hash rocket" style and "symbol" style.
 
 ## Hash Rocket Style
+
+<!-- TODO: what is a "hash rocket"? -->
 
 ```ruby
 fruit_colors = { "apple" => "red", "banana" => "yellow" }
@@ -106,22 +113,24 @@ pp color
 
 ## Symbol Style (most common)
 
-<!-- TODO: explain what a symbol is -->
+<!-- TODO: what is a "symbol"? -->
 
 ```ruby
 fruit_colors = { apple: "red", banana: "yellow" }
 
-color = fruit_colors.fetch(:apple)
+apple_color = fruit_colors.fetch(:apple)
 
-pp color
+pp apple_color
 ```
 {: .repl }
 
 <aside class="tip">
-  Hash keys can be strings, numbers, or symbols (like <code>:apple</code>). Symbols are faster and common in Ruby.
+  Hash keys can be strings, numbers, or symbols (like <code>:apple</code>). Using symbols for keys is faster and more common in Ruby.
 </aside>
 
 ## Adding & Updating Hash Data
+
+<!-- TODO: use store instead? -->
 
 You can insert or update data easily:
 
