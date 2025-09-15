@@ -56,6 +56,8 @@ pp fruit_colors["apple"]
 
 ## Symbol Style (most common)
 
+<!-- TODO: explain what a symbol is -->
+
 ```ruby
 fruit_colors = { apple: "red", banana: "yellow" }
 
