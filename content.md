@@ -4,7 +4,7 @@ The fast way to store and find things.
 
 ## Goal
 
-Today you'll learn how to store and retrieve information using Ruby Hashes, one of the most powerful tools in programming.
+Today you'll learn how to store and retrieve information using the [Ruby Hash](https://docs.ruby-lang.org/en/master/Hash.html) data structure, one of the most powerful tools in programming.
 
 ## Lists vs Dictionaries
 
@@ -21,27 +21,75 @@ pp banana
 Arrays use numbers (indexes) to find items. But what if you want to look up a fruit by name, or a country by its code? That's where Hashes come in.
 
 <aside class="tip">
-  Think of a hash like a **dictionary**: you look up a "word" (the key) and get its "definition" (the value).
+  Think of a hash like a <strong>dictionary</strong>. You look up a "word" (the key) and get its "definition" (the value).
 </aside>
 
 ## Your First Hash
 
-Let's build a hash that stores country codes:
+<!-- TODO: start with a simpler example? explain curly braces {} and Hash.new -->
+
+We can use the initializer to create a new instance of a `Hash`.
 
 ```ruby
-countries = {
-  "ES" => "Spain",
-  "FR" => "France",
-  "JP" => "Japan"
-}
+my_hash = Hash.new
+```
 
-pp countries["FR"]
+<!-- TODO: explain how to pass in key to access value -->
+<!-- TODO: use .store and .fetch first -->
+<!-- TODO: use square bracket syntax -->
+
+Now we need to insert some values. Let's build a hash that uses country codes for *keys* and country names for *values*.
+
+We'll use the [Hash#store](https://docs.ruby-lang.org/en/master/Hash.html#method-i-store) method to add keys and values.
+
+```ruby
+countries = Hash.new
+countries.store("USA", "United States")
+countries.store("FR", "France")
+countries.store("CN", "China")
+countries.store("ES", "Spain")
+
+pp countries
 ```
 {: .repl }
 
-Instead of remembering that "France" is at position 1, we just use "FR" as the key. Much easier!
+Now we can use the [Hash#fetch](https://docs.ruby-lang.org/en/master/Hash.html#method-i-fetch) method to access values for a given key.
+
+```ruby
+countries = Hash.new
+countries.store("USA", "United States")
+countries.store("FR", "France")
+countries.store("CN", "China")
+countries.store("ES", "Spain")
+
+pp countries.fetch("USA")
+```
+{: .repl }
+
+Instead of remembering that "USA" is at position 0, we just use "USA" as the key. Much easier!
 
 ## Hash Syntax
+
+We can also use the shorthand curly braces `{}` to create a hash. This is the most common way to create a hash in Ruby.
+
+```ruby
+my_hash = {}
+```
+{: .repl }
+
+<!--
+
+Ruby Symbol vs Hash Rocket
+In Ruby, the choice between using a symbol with a hash rocket (=>) and the newer colon syntax (:) affects the key type and the flexibility of the hash.
+
+When using the hash rocket syntax (=>), the key retains its original data type. This allows for keys that are strings, symbols, integers, or other objects. For example, { 'A' => 1 } creates a hash where the key 'A' is a string, and { 1 => 'one' } uses an integer key.
+ This syntax is necessary when the key is not a valid symbol identifier, such as one containing special characters like :$$set => value, or when using non-symbol keys like strings or integers.
+
+The newer colon syntax (:) is a shorthand that only works for symbol keys.
+
+-->
+
+<!-- TODO: what is a symbol? -->
 
 Ruby lets you write hashes in two ways:
 
@@ -50,7 +98,9 @@ Ruby lets you write hashes in two ways:
 ```ruby
 fruit_colors = { "apple" => "red", "banana" => "yellow" }
 
-pp fruit_colors["apple"]
+color = fruit_colors.fetch("apple")
+
+pp color
 ```
 {: .repl }
 
@@ -61,7 +111,9 @@ pp fruit_colors["apple"]
 ```ruby
 fruit_colors = { apple: "red", banana: "yellow" }
 
-pp fruit_colors[:apple]
+color = fruit_colors.fetch(:apple)
+
+pp color
 ```
 {: .repl }
 
@@ -139,7 +191,7 @@ So far, you've learned how to grab values from a hash by key. But what if you wa
 stock = { apple: 10, banana: 8, cherry: 7 }
 
 stock.each do |fruit, quantity|
-  puts "We have #{quantity} #{fruit}s in stock."
+  pp "We have #{quantity} #{fruit}s in stock."
 end
 ```
 {: .repl }
@@ -157,12 +209,14 @@ The `.each` method goes through every item in the hash and gives you both the ke
 Sometimes you only care about keys or values. You can use the `.keys` or `.values` methods to get an array and then loop through using `.each`.
 
 ```ruby
+stock = { apple: 10, banana: 8, cherry: 7 }
+
 stock.keys.each do |fruit|
-  puts fruit
+  pp fruit
 end
 
 stock.values.each do |quantity|
-  puts quantity
+  pp quantity
 end
 ```
 {: .repl }
