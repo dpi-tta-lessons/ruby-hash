@@ -20,13 +20,9 @@ pp banana
 
 Arrays use numbers (indexes) to find items. But what if you want to look up a fruit by name, or a country by its code? That's where Hashes come in.
 
-<aside class="tip">
-  Think of a hash like a <strong>dictionary</strong>. You look up a "word" (the key) and get its "definition" (the value).
-</aside>
-
 ## Your First Hash
 
-<!-- TODO: start with a simpler example? explain curly braces {} and Hash.new -->
+Think of a hash like a dictionary. You look up a "word" (the key) and get its "definition" (the value). The keys/values can be of any data type, but usually we use strings, numbers, and [symbols](#symbol-style) for the keys.
 
 We can use the initializer to create a new instance of a `Hash`.
 
@@ -37,26 +33,27 @@ pp my_hash
 ```
 {: .repl }
 
-<!-- TODO: explain how to pass in key to access value -->
-<!-- TODO: use .store and .fetch first -->
-<!-- TODO: use square bracket syntax -->
-
-Now we need to insert some values. Let's build a hash that uses country codes for *keys* and country names for *values*.
-
-We'll use the [Hash#store](https://docs.ruby-lang.org/en/master/Hash.html#method-i-store) method to add keys and values.
+We can also use the shorthand curly braces `{}` to create a hash. This is the most common way to create a hash in Ruby.
 
 ```ruby
-countries = Hash.new
-countries.store("USA", "United States")
-countries.store("FR", "France")
-countries.store("CN", "China")
-countries.store("ES", "Spain")
+my_hash = {}
 
-pp countries
+pp my_hash
 ```
 {: .repl }
 
-Now we can use the [Hash#fetch](https://docs.ruby-lang.org/en/master/Hash.html#method-i-fetch) method to access values for a given key.
+Now we need to insert some keys and values. We'll use the [Hash#store](https://docs.ruby-lang.org/en/master/Hash.html#method-i-store) method to add keys and values.
+
+```ruby
+my_hash = Hash.new
+
+my_hash.store("KEY", "VALUE")
+
+pp my_hash
+```
+{: .repl }
+
+Just setting a hash with key `"KEY"` and and value `"VALUE"` isn't super useful. Let's build a hash that uses country codes for *keys* and country names for *values*.. We'll use the [Hash#fetch](https://docs.ruby-lang.org/en/master/Hash.html#method-i-fetch) method to access values for a given key.
 
 ```ruby
 countries = Hash.new
@@ -71,36 +68,15 @@ pp countries.fetch("USA")
 
 Instead of remembering that "USA" is at position 0, we just use "USA" as the key. Much easier!
 
-## Hash Syntax
+<aside class="tip">
+  Try passing in different keys to the <code>countries</code> hash.
+<aside>
 
-We can also use the shorthand curly braces `{}` to create a hash. This is the most common way to create a hash in Ruby.
-
-```ruby
-my_hash = {}
-
-pp my_hash
-```
-{: .repl }
-
-<!--
-
-Ruby Symbol vs Hash Rocket
-In Ruby, the choice between using a symbol with a hash rocket (=>) and the newer colon syntax (:) affects the key type and the flexibility of the hash.
-
-When using the hash rocket syntax (=>), the key retains its original data type. This allows for keys that are strings, symbols, integers, or other objects. For example, { 'A' => 1 } creates a hash where the key 'A' is a string, and { 1 => 'one' } uses an integer key.
- This syntax is necessary when the key is not a valid symbol identifier, such as one containing special characters like :$$set => value, or when using non-symbol keys like strings or integers.
-
-The newer colon syntax (:) is a shorthand that only works for symbol keys.
-
--->
-
-<!-- TODO: what is a symbol? -->
-
-Ruby lets you write hashes in two ways, "hash rocket" style and "symbol" style.
+<!-- TODO: brief section on performance of hash vs array? -->
 
 ## Hash Rocket Style
 
-<!-- TODO: what is a "hash rocket"? -->
+The `=>` operator is used to pair keys with values in a Ruby Hash. We call `=>` a *hash rocket*.
 
 ```ruby
 fruit_colors = { "apple" => "red", "banana" => "yellow" }
@@ -111,37 +87,18 @@ pp color
 ```
 {: .repl }
 
-## Symbol Style (most common)
-
-<!-- TODO: what is a "symbol"? -->
-
-```ruby
-fruit_colors = { apple: "red", banana: "yellow" }
-
-apple_color = fruit_colors.fetch(:apple)
-
-pp apple_color
-```
-{: .repl }
-
-<aside class="tip">
-  Hash keys can be strings, numbers, or symbols (like <code>:apple</code>). Using symbols for keys is faster and more common in Ruby.
-</aside>
-
 ## Adding & Updating Hash Data
 
-<!-- TODO: use store instead? -->
-
-You can insert or update data easily:
+You can insert or update data easily using `store`.
 
 ```ruby
-stock = { apple: 10, banana: 5 }
+stock = { "apple" => 10, "banana" => 5 }
 
 # Add new item
-stock[:cherry] = 7
+stock.store("cherry", 7)
 
 # Update existing item
-stock[:banana] = 8
+stock.store("banana", 8)
 
 pp stock
 ```
@@ -152,15 +109,15 @@ pp stock
 Hashes come with helpful methods:
 
 ```ruby
-stock = { apple: 10, banana: 8, cherry: 7 }
+stock = { "apple" => 10, "banana" => 8, "cherry" => 7 }
 
 # true
-pp stock.key?(:banana)
+pp stock.key?("banana")
 
 # false
-pp stock.key?(:grape)
+pp stock.key?("grape")
 
-# [:apple, :banana, :cherry]
+# ["apple", "banana", "cherry"]
 pp stock.keys
 
 # [10, 8, 7]
@@ -170,34 +127,28 @@ pp stock.values
 
 ## Safer Retrieval
 
-Using `[]` will return nil if the key isn't found:
+Calling `fetch` will raise a `KeyError` if the key doesn't exist on the hash.
 
 ```ruby
-stock = { apple: 10 }
-
-# nil
-pp stock[:banana]  
+stock = { "apple" => 10 }
+pp stock.fetch("banana")
 ```
 {: .repl }
 
-But `.fetch` gives you control:
+`Hash#fetch` accepts a second argument `default_value` that is returned when the key doesn't exist. This can help us avoid raising a `KeyError`.
 
 ```ruby
-stock = { apple: 10 }
-pp stock.fetch(:banana, "Out of stock")
+stock = { "apple" => 10 }
+pp stock.fetch("banana", "Out of stock")
 ```
 {: .repl }
-
-<aside>
-  Note that calling <code>fetch</code> without a default value will raise a <code>KeyError</code>.
-</aside>
 
 ## Iterating Over Hashes
 
 So far, you've learned how to grab values from a hash by key. But what if you want to process every key-value pair in your hash? That's where `.each` comes in.
 
 ```ruby
-stock = { apple: 10, banana: 8, cherry: 7 }
+stock = { "apple" => 10, "banana" => 8, "cherry" => 7 }
 
 stock.each do |fruit, quantity|
   pp "We have #{quantity} #{fruit}s in stock."
@@ -218,7 +169,7 @@ The `.each` method goes through every item in the hash and gives you both the ke
 Sometimes you only care about keys or values. You can use the `.keys` or `.values` methods to get an array and then loop through using `.each`.
 
 ```ruby
-stock = { apple: 10, banana: 8, cherry: 7 }
+stock = { "apple" => 10, "banana" => 8, "cherry" => 7 }
 
 stock.keys.each do |fruit|
   pp fruit
@@ -229,6 +180,48 @@ stock.values.each do |quantity|
 end
 ```
 {: .repl }
+
+<!-- TODO: brief section on performance array O(n) vs O(1) for beginners -->
+
+## Syntax Sugar
+
+
+<!--
+
+Ruby Symbol vs Hash Rocket
+In Ruby, the choice between using a symbol with a hash rocket (=>) and the newer colon syntax (:) affects the key type and the flexibility of the hash.
+
+When using the hash rocket syntax (=>), the key retains its original data type. This allows for keys that are strings, symbols, integers, or other objects. For example, { 'A' => 1 } creates a hash where the key 'A' is a string, and { 1 => 'one' } uses an integer key.
+ This syntax is necessary when the key is not a valid symbol identifier, such as one containing special characters like :$$set => value, or when using non-symbol keys like strings or integers.
+
+The newer colon syntax (:) is a shorthand that only works for symbol keys.
+
+-->
+
+<!-- TODO: what is a symbol? -->
+
+Ruby lets you write hashes in two ways, "hash rocket" style and "symbol" style.
+
+### Symbol Style
+
+<!-- TODO: what is a "symbol"? -->
+
+```ruby
+fruit_colors = { apple: "red", banana: "yellow" }
+
+apple_color = fruit_colors.fetch(:apple)
+
+pp apple_color
+```
+{: .repl }
+
+<aside class="tip">
+  Hash keys can be strings, numbers, or symbols (like <code>:apple</code>). Using symbols for keys is faster and more common in Ruby.
+</aside>
+
+### Square Bracket Style
+
+<!-- TODO: square bracket style -->
 
 ## Wrap-Up
 
