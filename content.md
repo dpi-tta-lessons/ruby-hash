@@ -72,11 +72,13 @@ Instead of remembering that "USA" is at position 0, we just use "USA" as the key
   Try passing in different keys to the <code>countries</code> hash.
 <aside>
 
-<!-- TODO: brief section on performance of hash vs array? -->
+## Hash vs Array
+
+Use an Array when *order* matters. Use a Hash when *names/labels* matter. As your data grows, finding by label in a Hash is still quick. Counting through spots in an Array can become slow.
 
 ## Hash Rocket Style
 
-The `=>` operator is used to pair keys with values in a Ruby Hash. We call `=>` a *hash rocket*.
+The `=>` operator is used to pair keys with values in a Ruby Hash. We call `=>` a *hash rocket* (or *fat arrow*).
 
 ```ruby
 fruit_colors = { "apple" => "red", "banana" => "yellow" }
@@ -185,7 +187,6 @@ end
 
 ## Syntax Sugar
 
-
 <!--
 
 Ruby Symbol vs Hash Rocket
@@ -195,25 +196,22 @@ When using the hash rocket syntax (=>), the key retains its original data type. 
  This syntax is necessary when the key is not a valid symbol identifier, such as one containing special characters like :$$set => value, or when using non-symbol keys like strings or integers.
 
 The newer colon syntax (:) is a shorthand that only works for symbol keys.
-
 -->
-
-<!-- TODO: what is a symbol? -->
-
-Ruby lets you write hashes in two ways, "hash rocket" style and "symbol" style.
 
 ### Symbol Style
 
-<!-- TODO: what is a "symbol"? -->
+Ruby lets you write hashes in two ways, "hash rocket" style and "symbol" style.
+
+A symbol is a short, simple label that starts with `:` like `:apple`. We use symbols for keys because they're tidy and don't change.
 
 ```ruby
-fruit_colors = { apple: "red", banana: "yellow" }
-
-apple_color = fruit_colors.fetch(:apple)
-
-pp apple_color
+pp :apple
+fruit = { :apple => "red" }
+pp fruit.fetch(:apple])
 ```
 {: .repl }
+
+Symbols are great for fixed labels (field names, options). Use strings for text people type.
 
 <aside class="tip">
   Hash keys can be strings, numbers, or symbols (like <code>:apple</code>). Using symbols for keys is faster and more common in Ruby.
@@ -221,7 +219,15 @@ pp apple_color
 
 ### Square Bracket Style
 
-<!-- TODO: square bracket style -->
+You can also use  square brackets `[]` to store and fetch values. The difference between `[]` and `fetch` is that square brackets return `nil` instead of throwing a `KeyError` when the key doesn't exist.
+```ruby
+stock = {}
+
+stock["apple"] = 10
+pp stock["apple"]
+pp stock["grape"]
+```
+{: .repl }
 
 ## Wrap-Up
 
