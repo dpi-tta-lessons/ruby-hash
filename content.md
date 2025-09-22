@@ -20,9 +20,21 @@ pp banana
 
 Arrays use numbers (indexes) to find items. But what if you want to look up a fruit by name, or a country by its code? That's where Hashes come in.
 
+## Hash vs Array
+
+Use an Array when *order* matters. Use a Hash when *names/labels* matter. As your data grows, finding by a key in a Hash is still quick. Counting through all the spots in an Array can become slow.
+
+Picture yourself in a mail room with thousands of mailboxes. Each mailbox is numbered starting at 0. Going through each mailbox 1 by 1 until you find what you are looking for would take a long time. Think of a hash as an index mapping name to mailbox number. This makes finding a mailbox much faster!
+
+In computer science we model this using Big O notation. Arrays are O(n) meaning in the worst case scenario you may have to loop through the entire length (n) of the array to find what you are looking for. Hashes are O(1) meaning in the worst case scenario we can still find what we are looking for at first glance.
+
 ## Your First Hash
-<!-- TODO: rephrase this. note that it's sometimes called a dictionary -->
+
 Think of a hash like a dictionary. You look up a "word" (the key) and get its "definition" (the value). The keys/values can be of any data type, but usually we use strings, numbers, or [symbols](#symbol-style) for the keys.
+
+<aside class="tip">
+  Some programming languages call the hash data structure a "dictionary".
+</aside>
 
 We can use the initializer to create a new instance of a `Hash`.
 
@@ -71,12 +83,6 @@ Instead of remembering that "USA" is at position 0, we just use "USA" as the key
 <aside class="tip">
   Try passing in different keys to the <code>countries</code> hash.
 </aside>
-
-## Hash vs Array
-
-<!-- TODO: expand on this metaphor. eg list of lockers with only numbers, hash has an index of names on the wall that map to a locker. makes lookup faster -->
-
-Use an Array when *order* matters. Use a Hash when *names/labels* matter. As your data grows, finding by a key in a Hash is still quick. Counting through spots in an Array can become slow.
 
 ## Hash Rocket Style
 
@@ -185,20 +191,7 @@ end
 ```
 {: .repl }
 
-<!-- TODO: brief section on performance array O(n) vs O(1) for beginners -->
-
 ## Syntax Sugar
-
-<!--
-
-Ruby Symbol vs Hash Rocket
-In Ruby, the choice between using a symbol with a hash rocket (=>) and the newer colon syntax (:) affects the key type and the flexibility of the hash.
-
-When using the hash rocket syntax (=>), the key retains its original data type. This allows for keys that are strings, symbols, integers, or other objects. For example, { 'A' => 1 } creates a hash where the key 'A' is a string, and { 1 => 'one' } uses an integer key.
- This syntax is necessary when the key is not a valid symbol identifier, such as one containing special characters like :$$set => value, or when using non-symbol keys like strings or integers.
-
-The newer colon syntax (:) is a shorthand that only works for symbol keys.
--->
 
 ### Symbol Style
 
