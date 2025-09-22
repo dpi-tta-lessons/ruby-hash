@@ -21,8 +21,8 @@ pp banana
 Arrays use numbers (indexes) to find items. But what if you want to look up a fruit by name, or a country by its code? That's where Hashes come in.
 
 ## Your First Hash
-
-Think of a hash like a dictionary. You look up a "word" (the key) and get its "definition" (the value). The keys/values can be of any data type, but usually we use strings, numbers, and [symbols](#symbol-style) for the keys.
+<!-- TODO: rephrase this. note that it's sometimes called a dictionary -->
+Think of a hash like a dictionary. You look up a "word" (the key) and get its "definition" (the value). The keys/values can be of any data type, but usually we use strings, numbers, or [symbols](#symbol-style) for the keys.
 
 We can use the initializer to create a new instance of a `Hash`.
 
@@ -70,11 +70,13 @@ Instead of remembering that "USA" is at position 0, we just use "USA" as the key
 
 <aside class="tip">
   Try passing in different keys to the <code>countries</code> hash.
-<aside>
+</aside>
 
 ## Hash vs Array
 
-Use an Array when *order* matters. Use a Hash when *names/labels* matter. As your data grows, finding by label in a Hash is still quick. Counting through spots in an Array can become slow.
+<!-- TODO: expand on this metaphor. eg list of lockers with only numbers, hash has an index of names on the wall that map to a locker. makes lookup faster -->
+
+Use an Array when *order* matters. Use a Hash when *names/labels* matter. As your data grows, finding by a key in a Hash is still quick. Counting through spots in an Array can become slow.
 
 ## Hash Rocket Style
 
