@@ -200,13 +200,29 @@ Ruby lets you write hashes in two ways, "hash rocket" style and "symbol" style.
 A symbol is a short, simple label that starts with `:` like `:apple`. We use symbols for keys because they're tidy and don't change.
 
 ```ruby
-pp :apple
+# this is a symbol
+:apple
+```
+
+```ruby
+# we can use symbols for keys in hash
 fruit = { :apple => "red" }
-pp fruit.fetch(:apple])
+
+pp fruit
 ```
 {: .repl }
 
 Symbols are great for fixed labels (field names, options). Use strings for text people type.
+
+Using symbols for keys is so common in ruby there is a shorthand syntax for creating hashes with symbol keys.
+
+```ruby
+# we can use symbol shorthand syntax to create hash with symbol keys
+fruit = { apple: "red" }
+
+pp fruit
+```
+{: .repl }
 
 <aside class="tip">
   Hash keys can be strings, numbers, or symbols (like <code>:apple</code>). Using symbols for keys is faster and more common in Ruby.
